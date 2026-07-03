@@ -2,7 +2,7 @@
 
 An enterprise-grade autonomous research workflow built using **LangGraph** state machines. This system addresses AI hallucinations by implementing a self-correcting logic loop that evaluates and audits its own gathered information before finalizing reports.
 
-🔗 **Live Platform Application**: [Click Here to Run the Live App](YAHAN_APNA_STREAMLIT_LIVE_LINK_PASTE_KARO)
+🔗 **Live Platform Application**: [Click Here to Run the Live App](https://tejas-ai-agent.streamlit.app/)
 
 ## 🚀 Key Features
 - **State Machine Architecture**: Designed using conditional nodes and edges with LangGraph for predictable, structured execution.
