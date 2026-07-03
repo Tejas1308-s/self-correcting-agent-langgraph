@@ -6,10 +6,10 @@ from langgraph.graph import StateGraph, START, END
 from langchain_groq import ChatGroq
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# 1. Force override system local properties
+# 1. Environment variables load karna
 load_dotenv()
 
-# Deep environment variables structural mapping validation
+# Deep env structural check
 if not os.environ.get("TAVILY_API_KEY") and ".env" in os.listdir():
     with open(".env", "r") as f:
         for line in f:
@@ -26,10 +26,11 @@ class AgentState(TypedDict):
     grade: str
     final_report: str
 
-# Initializing search tool explicitly with runtime environment parameters check
+# Fast Enterprise Tools Configuration
 search_tool = TavilySearchResults(max_results=2)
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
 
+# Safely extract text from data layers
 def extract_content(results) -> str:
     extracted = []
     if isinstance(results, list):
@@ -44,6 +45,7 @@ def extract_content(results) -> str:
         extracted.append(str(results))
     return "\n".join(extracted)
 
+# Graph Logic Nodes Setup
 def research_node(state: AgentState):
     query = state["query"]
     search_results = search_tool.invoke({"query": query})
@@ -75,6 +77,7 @@ def fix_report_node(state: AgentState):
     response = llm.invoke(prompt)
     return {"final_report": response.content}
 
+# Workflow Architecture Setup
 workflow = StateGraph(AgentState)
 
 workflow.add_node("research", research_node)
@@ -97,6 +100,7 @@ workflow.add_conditional_edges(
 workflow.add_edge("fix_report", END)
 app = workflow.compile()
 
+# UI System Layout
 st.title("🤖 Self-Correcting LangGraph Research Agent")
 st.caption("An autonomous AI workflow that evaluates and self-corrects its own information gathering loops.")
 
