@@ -2,6 +2,8 @@
 
 An enterprise-grade autonomous research workflow built using **LangGraph** state machines. This system addresses AI hallucinations by implementing a self-correcting logic loop that evaluates and audits its own gathered information before finalizing reports.
 
+🔗 **Live Platform Application**: [Click Here to Run the Live App](https://tejas-ai-agent.streamlit.app/)
+
 ## 🚀 Key Features
 - **State Machine Architecture**: Designed using conditional nodes and edges with LangGraph for predictable, structured execution.
 - **Autonomous Self-Correction**: Implements an evaluator (grader node) that scores LLM output and triggers secondary research loops if criteria aren't met.
@@ -27,7 +29,7 @@ An enterprise-grade autonomous research workflow built using **LangGraph** state
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Tejas1308-s/self-correcting-agent-langgraph.git
+   git clone https://github.com
    cd self-correcting-agent-langgraph
    ```
 
