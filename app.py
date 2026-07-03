@@ -2,7 +2,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 load_dotenv()
@@ -15,11 +15,11 @@ class AgentState(TypedDict):
     grade: str
     final_report: str
 
-# Stable & Fast Enterprise Search Tool
+# Stable & Fast Enterprise Search & Model Integration
 search_tool = TavilySearchResults(max_results=2)
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.1)
+# Switching to Free & Fast Llama 3.3 Engine via Groq
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
 
-# Helper function to safely extract text from search results
 def extract_content(results) -> str:
     extracted = []
     if isinstance(results, list):
@@ -50,6 +50,7 @@ def grader_node(state: AgentState):
     Analyze this report: '{state['final_report']}'. 
     Does it clearly answer the original question '{state['query']}'? 
     Reply with exactly one word: 'good' if it answers it perfectly, or 'bad' if it lacks deep data.
+    Do not add punctuation or extra words.
     """
     response = llm.invoke(prompt)
     grade_result = response.content.strip().lower()

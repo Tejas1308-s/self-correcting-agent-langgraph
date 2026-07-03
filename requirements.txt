@@ -5,3 +5,4 @@ duckduckgo-search
 streamlit
 python-dotenv
 dotenv
+langchain-groq
