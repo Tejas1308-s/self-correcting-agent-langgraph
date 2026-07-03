@@ -1,11 +1,22 @@
 import streamlit as st
+import os
 from dotenv import load_dotenv
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 from langchain_groq import ChatGroq
 from langchain_community.tools.tavily_search import TavilySearchResults
 
+# 1. Force override system local properties
 load_dotenv()
+
+# Deep environment variables structural mapping validation
+if not os.environ.get("TAVILY_API_KEY") and ".env" in os.listdir():
+    with open(".env", "r") as f:
+        for line in f:
+            if "TAVILY_API_KEY" in line:
+                os.environ["TAVILY_API_KEY"] = line.split("=")[1].strip().strip('"').strip("'")
+            if "GROQ_API_KEY" in line:
+                os.environ["GROQ_API_KEY"] = line.split("=")[1].strip().strip('"').strip("'")
 
 st.set_page_config(page_title="Agentic RAG Engine", layout="wide")
 
@@ -15,9 +26,8 @@ class AgentState(TypedDict):
     grade: str
     final_report: str
 
-# Stable & Fast Enterprise Search & Model Integration
+# Initializing search tool explicitly with runtime environment parameters check
 search_tool = TavilySearchResults(max_results=2)
-# Switching to Free & Fast Llama 3.3 Engine via Groq
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
 
 def extract_content(results) -> str:
