@@ -19,11 +19,25 @@ class AgentState(TypedDict):
 search_tool = TavilySearchResults(max_results=2)
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.1)
 
+# Helper function to safely extract text from search results
+def extract_content(results) -> str:
+    extracted = []
+    if isinstance(results, list):
+        for res in results:
+            if isinstance(res, dict):
+                extracted.append(res.get("content", str(res)))
+            else:
+                extracted.append(str(res))
+    elif isinstance(results, dict):
+        extracted.append(results.get("content", str(results)))
+    else:
+        extracted.append(str(results))
+    return "\n".join(extracted)
+
 def research_node(state: AgentState):
     query = state["query"]
-    # Direct search invoke list handling
     search_results = search_tool.invoke({"query": query})
-    context = "\n".join([res.get("content", "") for res in search_results])
+    context = extract_content(search_results)
     return {"raw_data": context}
 
 def writer_node(state: AgentState):
@@ -43,7 +57,7 @@ def grader_node(state: AgentState):
 
 def fix_report_node(state: AgentState):
     extra_search = search_tool.invoke({"query": f"{state['query']} deep technical analysis details"})
-    extra_context = "\n".join([res.get("content", "") for res in extra_search])
+    extra_context = extract_content(extra_search)
     combined_context = state["raw_data"] + "\n\nAdditional Data:\n" + extra_context
     
     prompt = f"Rewrite this report: {state['final_report']} by integrating this new crucial context: {combined_context}"
