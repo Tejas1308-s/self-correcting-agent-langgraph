@@ -1,6 +1,6 @@
 # 🤖 Self-Correcting Research Agent (LangGraph + Groq + Tavily + Streamlit)
 
-An enterprise-grade autonomous research workflow built using **LangGraph** state machine. This system addresses AI hallucinations by implementing a self-correcting logic loop that evaluates and audits its own gathered information before finalizing reports.
+An enterprise-grade autonomous research workflow built using **LangGraph** state machines. This system addresses AI hallucinations by implementing a self-correcting logic loop that evaluates and audits its own gathered information before finalizing reports.
 
 🔗 **Live Platform Application**: [Click Here to Run the Live App](https://tejas-ai-agent.streamlit.app/)
 
