@@ -1,52 +1,186 @@
-# 🤖 Self-Correcting Research Agent (LangGraph + Groq + Tavily + Streamlit)
+# 🤖 Self-Correcting AI Research Agent
 
-An enterprise-grade autonomous research workflow built using **LangGraph** state machines. This system addresses AI hallucinations by implementing a self-correcting logic loop that evaluates and audits its own gathered information before finalizing reports.
+An autonomous AI research assistant built using **LangGraph** that performs web research, generates structured reports, evaluates its own output, and improves the report through a self-correcting workflow before presenting the final result.
 
-🔗 **Live Platform Application**: [Click Here to Run the Live App](https://tejas-ai-agent.streamlit.app/)
+🌐 **Live Demo:** https://tejas-ai-agent.streamlit.app/
 
-## 🚀 Key Features
-- **State Machine Architecture**: Designed using conditional nodes and edges with LangGraph for predictable, structured execution.
-- **Autonomous Self-Correction**: Implements an evaluator (grader node) that scores LLM output and triggers secondary research loops if quality criteria aren't met.
-- **Lightning-Fast Open Source Inference**: Powered by **Groq Cloud Engine** running the `llama-3.3-70b-versatile` model.
-- **Production-Grade Data Gathering**: Uses **Tavily AI Search API** for deep, optimized web research loops.
-- **Interactive Dashboard**: Built on Streamlit to visualize the multi-agent system execution flow dynamically.
+---
 
-## 🏗️ System Architecture Flow
+## 📸 Application Preview
+
+![Home Page](screenshots/home.png)
+
+---
+
+## 🚀 Features
+
+- 🔍 Performs autonomous web research using **Tavily AI Search**
+- ✍️ Generates structured research reports using **Llama 3.3 (Groq)**
+- ✅ Implements a self-correcting evaluation loop using **LangGraph**
+- 🔄 Re-runs the research workflow when report quality is below the required threshold
+- 🌐 Interactive web interface built with **Streamlit**
+
+---
+
+## ⚙️ Agent Execution
+
+The agent researches the given topic, evaluates the generated report, and automatically performs another research cycle whenever the quality does not satisfy the evaluation criteria.
+
+![Execution](screenshots/execution.png)
+
+---
+
+## 🏗️ Workflow
+
 ```text
-[START] ──> [Research Node (Tavily)] ──> [Writer Node (Draft Report)]
-                                                    │
-                                                    ▼
-[END] <─── [Good Quality Target] <─── [Conditional Grader Node] ───> [Bad Quality] ──> [Fix & Re-write Node]
+                User Query
+                     │
+                     ▼
+         🔍 Research Node (Tavily)
+                     │
+                     ▼
+        ✍️ Report Generation Node
+                     │
+                     ▼
+          ✅ Quality Evaluation Node
+               │             │
+        Good Quality     Needs Improvement
+               │             │
+               ▼             ▼
+        Final Report   🔄 Re-search & Rewrite
 ```
 
-## 🛠️ Tech Stack & Frameworks
-- **Core Engine**: Python 3.12+
-- **Orchestration**: LangGraph
-- **LLM Driver**: Groq Cloud (Llama 3.3)
-- **Data Ingestion**: Tavily AI Search
-- **Frontend Dashboard**: Streamlit
+---
 
-## 💻 Local Installation & Setup
+## 📄 Sample Output
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com
-   cd self-correcting-agent-langgraph
-   ```
+After successfully completing the research and evaluation process, the system generates a structured and verified report.
 
-2. **Install all dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+![Verified Report](screenshots/final_report.png)
 
-3. **Configure Environment Variables:**
-   Create a `.env` file in the root directory and insert your secret keys:
-   ```env
-   GROQ_API_KEY=your_groq_api_key
-   TAVILY_API_KEY=your_tavily_api_key
-   ```
+### Example Structured Report
 
-4. **Launch the platform application:**
-   ```bash
-   python -m streamlit run app.py
-   ```
+![Report Table](screenshots/report_table.png)
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Programming Language | Python 3.12 |
+| Agent Framework | LangGraph |
+| Large Language Model | Groq (Llama 3.3 70B Versatile) |
+| Web Search | Tavily AI Search |
+| Frontend | Streamlit |
+
+---
+
+## 📂 Project Structure
+
+```text
+self-correcting-agent-langgraph/
+│
+├── screenshots/
+│   ├── home.png
+│   ├── execution.png
+│   ├── final_report.png
+│   └── report_table.png
+│
+├── app.py
+├── requirements.txt
+├── .env
+├── README.md
+```
+
+---
+
+## 💻 Installation
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Tejas1308-s/self-correcting-agent-langgraph.git
+
+cd self-correcting-agent-langgraph
+```
+
+---
+
+### 2️⃣ Create a Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+Activate it
+
+**Windows**
+
+```bash
+.venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source .venv/bin/activate
+```
+
+---
+
+### 3️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4️⃣ Configure Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+GROQ_API_KEY=your_groq_api_key
+TAVILY_API_KEY=your_tavily_api_key
+```
+
+---
+
+### 5️⃣ Run the Application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📚 What I Learned
+
+During this project I gained hands-on experience with:
+
+- Designing state-based AI workflows using LangGraph
+- Building self-correcting AI systems
+- Integrating external search tools with LLMs
+- Managing iterative reasoning workflows
+- Deploying AI applications using Streamlit
+
+---
+
+## 🚀 Future Improvements
+
+- Multi-agent collaboration
+- Long-term conversational memory
+- Citation verification
+- PDF report export
+- Source credibility scoring
+- Research history and report storage
+
+---
+
+## ⭐ GitHub
+
+If you found this project useful or interesting, consider giving it a ⭐.
+
+Feedback and suggestions are always welcome!
